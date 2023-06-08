@@ -1,2 +1,0 @@
-# videojuegosPi
-Proyecto Individual Videosjuegos 
