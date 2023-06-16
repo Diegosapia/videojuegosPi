@@ -5,7 +5,7 @@ const { API_KEY } = process.env;
 
 
 
-////   se hace la consulta a la api iterandola 6 veces para lograr    ///
+////   se hace la consulta a la api iterandola 5 veces para lograr    ///
 ///    los 100 videojuegos                   ///
 const getGames = async () => {
   const arrayVg = [];
@@ -64,4 +64,4 @@ const getAllVidegamesInfo = async()=>{
 
 
 
-module.exports = { getAllVidegamesInfo};
+module.exports = { getAllVidegamesInfo,getGames};
