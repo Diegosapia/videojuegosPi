@@ -6,7 +6,7 @@ const {getNameVideogame,
     addVideogame} = require('../handlers/videogamesHandler')
 
 const videoRouters = Router();
-    
+
 videoRouters.get('/', getNameVideogame);
 
 videoRouters.get('/', getVideogame);

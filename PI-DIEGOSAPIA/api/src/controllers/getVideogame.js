@@ -6,12 +6,13 @@ const { API_KEY } = process.env;
 
 
 ////   se hace la consulta a la api iterandola 6 veces para lograr    ///
-///    la cantidad de juegos pedidos por el readme                     ///
+///    los 100 videojuegos                   ///
 const getGames = async () => {
   const arrayVg = [];
+  let nextPage =`https://api.rawg.io/api/games?key=${API_KEY}`
 
-  for (let i = 0; i < 6; i++) {
-    const response = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`);//&page=${i}
+  for (let i = 0; i < 5; i++) {
+    const response = await axios.get(nextPage);//&page=${i}
     response.data.results.map((e) => {
       arrayVg.push({
         id: e.id,
@@ -23,12 +24,10 @@ const getGames = async () => {
         platform: e.platforms.map((e) => e.platform.name).join(", "),
       });
     });
+    nextPage = response.data.next;
   }
   return arrayVg;
 };
-
-
-
  /// se hace consulta a la base de datos ///
 const getInfoBd = async () => {
    const dbInfo = await Videogame.findAll({
@@ -40,17 +39,25 @@ const getInfoBd = async () => {
            }
        }
    });
-    return dbInfo;
-   };
+   const formattedVideogames = dbInfo.map(videogame => ({
+    ...videogame.toJSON(),
+    genres: videogame.genres.map(genre => genre.name).join(', ')
+  }))
+  
 
+    return formattedVideogames;
+   };
 /// junto las dos informaciones y las devuelvo ///
 
 const getAllVidegamesInfo = async()=>{
    const apiInfo = await getGames();
-   const dbInfo = await getInfoBd();
-   const allInfo = apiInfo.concat(dbInfo);
-   return allInfo;
-}
+   const formattedVideogames = await getInfoBd();
+   const allInfo = apiInfo.concat(formattedVideogames);
+   
+    return allInfo;
+   }
+  
+
 
 
 

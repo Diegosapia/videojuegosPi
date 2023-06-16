@@ -27,10 +27,6 @@ const createVideogame = async (name, description, platforms, rating,background_i
                newVideogame.addGenres(genreBd);
                return newVideogame;
         }
-            
-    
- 
- 
  
 }
 

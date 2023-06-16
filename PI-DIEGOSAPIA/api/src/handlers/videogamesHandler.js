@@ -2,6 +2,10 @@ const { getAllVidegamesInfo } = require("../controllers/getVideogame");
 const { videogameQuery } = require("../controllers/videogameQuery");
 const { getIdVideogame } = require("../controllers/getIdVideogame");
 const { createVideogame } = require("../controllers/createVideogame");
+
+
+
+
 //------------------------------------------------------------------------------------------//
 ///////   buscar todos los juegos //////////
 const getVideogame = async (req, res) => {
@@ -16,26 +20,20 @@ const getVideogame = async (req, res) => {
 //////////    buscar game por nombre ///////
                                         ///  http://localhost:3001/videogames?name=Doom
 
-const getNameVideogame = async (req, res) => {
-  const name = req.query.name;
-  const videogamesTotal = await videogameQuery(name);
-  try {
-    if (name) {
+const getNameVideogame = async (req, res, next) => {
+  const {name} = req.query
+  if (name) {
+    try {
       // si se recibe nombre ///
-      let videogameName = await videogamesTotal.filter((e) =>
-        e.name.toLowerCase().includes(name.toLowerCase())
-      );
-      if (videogameName.length < 16) {
-        res.status(200).json(videogameName);
-      } else {
-        res.status(404).send("Ups sorry , no videogame with that name");
-      }
-    } else {
-      /// si no se recibe nombre trae a todos ///
+      
+        const response = await videogameQuery(name);
+          res.status(200).json(response);
+        } 
+           catch (error) {
       res.status(404).json({ error: error.message });
     }
-  } catch (error) {
-    res.status(404).json({ error: error.message });
+  } else {
+    next();
   }
 };
 //------------------------------------------------------------------------------------------//
@@ -43,9 +41,9 @@ const getNameVideogame = async (req, res) => {
 
 const getVideogameId = async (req, res) => {
   const id = req.params.id;
-
+  const origen = isNaN(id) ? 'bd' : 'api'
   try {
-    const result = await getIdVideogame(id);
+    const result = await getIdVideogame(id, origen);
 
     if (result) {
       res.status(200).json(result);
@@ -62,6 +60,7 @@ const addVideogame = async (req, res) => {
   /// destructura la info recibida por body ////
   try {
     const {name,description,platforms,rating,background_image,released,genres} = req.body;
+    if(name )
     if (!name) {
       return res.status(400).send("we missing info");
     } else {

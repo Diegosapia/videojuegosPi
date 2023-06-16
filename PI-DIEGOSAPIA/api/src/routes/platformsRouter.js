@@ -3,6 +3,6 @@ const platformsRouter = Router();
 const { platformsHandler } = require('../handlers/platformsHandler');
 
 
-platformsRouter.get('/platforms',platformsHandler);
+platformsRouter.get('/',platformsHandler);
 
 module.exports = platformsRouter;

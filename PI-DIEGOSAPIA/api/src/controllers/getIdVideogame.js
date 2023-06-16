@@ -7,8 +7,8 @@ const { Videogame, Genre } = require("../db");
 
 /// http://localhost:3001/videogames/2344
 
-const getIdVideogame = async (id) => {
-  if (id.includes("-")) {
+const getIdVideogame = async (id, origen) => {
+  if (origen === 'db' ) {
     let encontrado = await Videogame.findByPk(id, {
       include: [
         {
