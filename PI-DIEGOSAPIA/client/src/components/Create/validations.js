@@ -24,6 +24,7 @@ const validations = (form) => {
     if(form.platforms.length > 5) {
         error.platforms = "Your videogame can't have more than 5 Platforms"
     }
+    
     return error;
 }
 

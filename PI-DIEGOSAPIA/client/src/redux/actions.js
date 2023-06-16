@@ -174,7 +174,10 @@ export function orderBy(params) {
   export function CreateVideogame(payload) {
     return async function(dispatch) {
       const response = await axios.post('http://localhost:3001/videogames',payload)
-    console.log(payload)
-    return response;
-    }
+    console.log(response)
+    return dispatch ({
+      type:CREATE_VIDEOGAME,
+      payload: response
+    })
+  }
   }

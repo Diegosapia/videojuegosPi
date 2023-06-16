@@ -6,6 +6,7 @@ import gamezone from './gamezone.png';
 
 export default function LandingPage() {
     return (
+    <div className={style.all}>
         <div className={style.landing}>
             <div className={style.imgC}>
                 <div className={style.imgbox}>
@@ -19,5 +20,6 @@ export default function LandingPage() {
                 </div>
             </div>
         </div>
+     </div>
     )
 };

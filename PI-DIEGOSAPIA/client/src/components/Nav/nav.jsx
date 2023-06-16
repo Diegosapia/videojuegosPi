@@ -8,19 +8,21 @@ const NavBar = () => {
 
 
     return (
-        <nav className={style.conteiner}>
-            <Link to="/home" className={style.home}>
-                <button className={style.bhome}>Home</button>
-            </Link>
+        <div className={style.all}>
+        <div className={style.createcb}>
             <Link to="/create" className={style.create}>
-            <button className={style.bcreate}>Create Videogame </button>
+            <button className={style.bcreate}> -Create Videogame- </button>
           </Link>
+        </div>
+        <nav className={style.conteiner}>
+           
             <div className={style.searchBar}>
                 <SearchBar />
             </div>
 
 
         </nav>
+        </div>
     )
 }
 

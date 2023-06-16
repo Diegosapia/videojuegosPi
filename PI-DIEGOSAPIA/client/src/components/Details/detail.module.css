@@ -1,13 +1,18 @@
-.container{
-    background-color: black;
-    color: rgb(8, 130, 237);
- 
-    margin: 40px auto;
-    padding: 40px;
+.all{
+    background-color: #312c2c;
     
 }
+.container{
+    background-color: black;
+    color: rgb(255, 254, 255);
+    max-width: 820px;
+    margin: 40px auto;
+    padding: 40px;
+    border: 2px solid #e712e3;
+    box-shadow: 10px 10px 5px 0px #e712e3;
+}
 .container h1{
-    color: #ec0ce0;
+    color: white;
     font-size: 40px;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     letter-spacing: 1.5px;
@@ -46,10 +51,24 @@
 .bhome{
     color: white;
     background-color: #e712e3;
-    border: 2px solid white;
+    border: 2px solid transparent;
+    border-radius: 5px;
     box-shadow: 5px 5px 5px 0px #e712e3;
 }
 .bhome:hover {
     box-shadow: 0 2px 30px #f804ef;
   }
 
+.maps{
+    font-size: 30px;
+    color: #e712e3
+}
+.rating h3 {
+    
+}
+.released {
+    color :#e712e3;
+}
+.rat{
+    color :#e712e3;
+}

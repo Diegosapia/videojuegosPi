@@ -1,4 +1,8 @@
 
+.all{
+background-color: #312c2c;
+
+}
 .landing {
   display: flex;
   justify-content: center;
