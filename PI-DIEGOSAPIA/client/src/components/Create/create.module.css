@@ -1,0 +1,37 @@
+.formContainer{
+    border: 5px solid black;
+    background-color: #d571cb35;
+}
+.reset{
+    display: flex;
+   justify-content: center;
+ 
+}
+.resetB {
+    font-size: 20px;
+    border: 2px solid  black;
+    background-color: rgb(18, 17, 19);
+    color: white;
+}
+.resetB:hover {
+    color: #f804ef;
+}
+.inputContainer{
+    display: flex;
+    justify-content: center;
+}
+.input {
+    width: 400px;
+    margin: 10px;
+}
+.inputD {
+    width: 400px;
+    height: 90px;
+}
+.checkboxContainer{
+    
+    border: 2px solid;
+}
+.label{
+ 
+}

@@ -1,0 +1,26 @@
+.paginado {
+ 
+   background-color: white;
+}
+.paginado ul {
+    list-style: none;
+    text-align: center;
+    
+}
+.paginado ul li {
+    display: inline-block;
+    margin-right: 10px;
+    background-color: #8971d0;
+}
+
+.pageLink {
+
+    color: white;
+    background-color: #8b157d94;
+    border: 2px solid black;
+    width: 35px;
+    height: 35px;
+}
+.pageLink:hover {
+    box-shadow: 0 2px 30px #f804ef;
+}

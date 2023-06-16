@@ -1,0 +1,55 @@
+.container{
+    background-color: black;
+    color: rgb(8, 130, 237);
+ 
+    margin: 40px auto;
+    padding: 40px;
+    
+}
+.container h1{
+    color: #ec0ce0;
+    font-size: 40px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: 1.5px;
+}
+.imgconteinre{
+    border: 5px solid white;
+}
+.img {
+    width: 50em;
+    height: auto;
+    border: 3px #e712e3 solid;
+    box-shadow: 10px 10px 5px 0px #e712e3;
+}
+.name {
+  text-align: center;
+}
+.textdescription {
+    position: flex;
+    text-align: center;
+}
+.rating {
+    text-align: right;
+}
+.fecha {
+    text-align: right;
+}
+.genres{
+    text-align: left;
+}
+.bHome{
+    font-size: 30px;
+    color: #e712e3;
+    display: flex;
+    justify-content: center;
+}
+.bhome{
+    color: white;
+    background-color: #e712e3;
+    border: 2px solid white;
+    box-shadow: 5px 5px 5px 0px #e712e3;
+}
+.bhome:hover {
+    box-shadow: 0 2px 30px #f804ef;
+  }
+

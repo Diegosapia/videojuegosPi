@@ -1,0 +1,12 @@
+
+.conteiner {
+    display: flex;
+    justify-content: center;
+    background-color: #bd0fa894;
+}
+.videogames {
+    background-color: rgb(46, 35, 45);
+}
+.selectInput{
+    border: 2px solid #8b157d94;
+}
