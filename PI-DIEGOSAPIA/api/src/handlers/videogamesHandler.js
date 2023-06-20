@@ -42,23 +42,23 @@ const getNameVideogame = async (req, res, next) => {
 const getVideogameId = async (req, res) => {
   const id = req.params.id;
   const origen = isNaN(id) ? 'bd' : 'api'
+  
   try {
     const result = await getIdVideogame(id, origen);
-
+  
     if (result) {
       res.status(200).json(result);
-    } else {
-      res.status(404).send("Game not found");
+    
     }
   } catch (error) {
-    res.status(500).send("Internal Server Error");
+    
+     res.status(501).send({error:error.message});
   }
 };
 //------------------------------------------------------------------------------------------//
 //// agrega el videogame a la base de datos ////
 const addVideogame = async (req, res) => {
   /// destructura la info recibida por body ////
-
   try {
     const {name,description,platforms,rating,background_image,released,genres} = req.body;
     //if(name )
@@ -66,7 +66,7 @@ const addVideogame = async (req, res) => {
       return res.status(400).send("we missing info");
     } else {
       await createVideogame(
-        name,
+        name.toLowerCase(),
         description,
         platforms,
         rating,
