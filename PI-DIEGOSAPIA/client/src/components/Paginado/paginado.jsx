@@ -2,12 +2,17 @@ import React from "react";
 import style from './paginado.module.css';
 
 const Paginado = ({ videogamesPerPage, allVideogames,currentPage, pagina }) => {
+   
+     
     const pageNumbers = [];
 
     for (let i = 1; i <= Math.ceil(allVideogames / videogamesPerPage); i++) {
         pageNumbers.push(i)
     }
 
+
+
+    
 // const handlePreviusPage = () => {
 //     if(currentPage > 1) {
 //         pagina(currentPage -1)

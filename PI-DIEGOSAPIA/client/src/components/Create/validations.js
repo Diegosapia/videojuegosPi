@@ -24,7 +24,9 @@ const validations = (form) => {
     if(form.platforms.length > 5) {
         error.platforms = "Your videogame can't have more than 5 Platforms"
     }
-    
+    if(form.background_image.length < 1) {
+        error.image = "You must update an URL with a picture"
+    }
     return error;
 }
 

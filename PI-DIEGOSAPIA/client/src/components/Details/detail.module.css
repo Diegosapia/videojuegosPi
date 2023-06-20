@@ -63,12 +63,12 @@
     font-size: 30px;
     color: #e712e3
 }
-.rating h3 {
-    
-}
+
 .released {
     color :#e712e3;
+    justify-content: end;
 }
 .rat{
+    justify-content: end;
     color :#e712e3;
 }

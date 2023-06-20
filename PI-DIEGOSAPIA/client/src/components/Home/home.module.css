@@ -10,3 +10,7 @@
 .selectInput{
     border: 2px solid #8b157d94;
 }
+.button{
+    background-color: blueviolet;
+    color: white;
+}

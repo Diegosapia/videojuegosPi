@@ -6,48 +6,57 @@ import Videogames from "../Videogames/videogames";
 import Paginado from "../Paginado/paginado";
 
 const Home = () => {
+    /// declaro la constante dispatch para igualarla al hook useDispatch()
     const dispatch = useDispatch();
     const allVideogames = useSelector((state)=> state.videogames);
     const allGenres = useSelector((state)=> state.genres);
 
     ///////////////   paginado //////////////
+//// declaro los estados locales para hacer el paginado correspondiente a la cantidad de videogames por pagina
     const [currentPage, setCurrentPage] = useState(1);
     const [videogamesPerPage, setVideogamesPerPage]= useState(15)
     const indexOfLastVideogame = currentPage * videogamesPerPage // 15
     const indexOfFirstVideogame = indexOfLastVideogame - videogamesPerPage // 0
     const currentVideogames = allVideogames.slice(indexOfFirstVideogame,indexOfLastVideogame)    
-
-
+//// declaro pagina como setCurrentpage(pageNumber)
     const pagina = (pageNumber) =>{
         setCurrentPage(pageNumber)
-      
+
     }
-
-
+    
+//// utilizo el useEffect para controlar que se cargen los genres y los juegos cada ves que se monte la pagina
+//// ademas utilizo un cleanDetail para limpiar los detalles traidos para renderizar el detial
     useEffect(() => {
         dispatch(getGames());
         dispatch(getGenres())
         return () => dispatch(cleanDetail())
     },[dispatch]);
 
+    
+/// declaro y seteo el handler para "resetear" la info renderizada 
     const getVideogameHandler = (event) =>{
         event.preventDefault();
         dispatch(getGames());
     };
-
+//// declaro y seteo el handler para el ordenamiento alfabetico, despachando el evento a la action filterGames 
     const orderHandler = (event) =>{
         dispatch(filterGames(event.target.value));
+        setCurrentPage(1);
     };
-    const formHandler = (event) =>{
-        dispatch(getSort(event.target.value))
+//// declaro y seteo el handler para filtrado por origen, despacho el evento a la action getSort
+    const origenHandler = (event) =>{
+        dispatch(getSort(event.target.value));
+        setCurrentPage(1);
     }
-
+/// declaro y seteo el handler para filtrado por genero y despacho el evento a la action filterByGenres
     const genresHandler = (event) =>{
-        dispatch(filterByGenres(event.target.value))
+        dispatch(filterByGenres(event.target.value));
+        setCurrentPage(1);
     };
-
+//// declaro y seteo el handler para filtrado por rating y despacho el evento a la action orderBy
     const ratingHandler = (event)=>{
-        dispatch(orderBy(event.target.value))
+        dispatch(orderBy(event.target.value));
+        setCurrentPage(1);
     }
 
     return (
@@ -55,8 +64,10 @@ const Home = () => {
             <div>
                
         </div>
+        <div className={style.filters}>
+{/* aca tengo las barras de selecs donde manejo el ordenamiento y filtros  */}
             <div className={style.conteiner} >
-                <select className={style.selectInput}onChange={formHandler}>
+                <select className={style.selectInput}onChange={origenHandler}>
                     <option value='All'>Todos</option>
                     <option value='api'>Originales</option>
                     <option value='bd'>Creados</option>
@@ -73,12 +84,14 @@ const Home = () => {
                     <option value="All">All Genres</option>
                     {allGenres.map((genre) => (
                         <option value={genre.name} key={genre.name}>{genre.name}</option>
-                    ))}
+                        ))}
                 </select>
                 <button className={style.button}onClick={(event) => { getVideogameHandler(event) }}>Reset</button>
             </div>
+        </div>
             <div className={style.videogames}>
-                
+                {/* en esta parte estoy renderizando el componente videogames pasandole como parametro 'currentVideogames''
+que muestra los 15 videogames por pagina ya creados previamente en el estado local  */}
             <Videogames currentVideogames={currentVideogames} />
             
             <Paginado pagina={pagina}

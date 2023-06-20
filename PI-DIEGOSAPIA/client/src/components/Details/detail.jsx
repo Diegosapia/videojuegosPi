@@ -9,9 +9,10 @@ import style from './detail.module.css';
 function GameDetail() {
 ////
     const dispatch = useDispatch()
-    ////
+    //// useSelector() se usa para recuperar el estado de la tienda Redux.
     const videosD = useSelector(state => state.detail)
    ////
+   
     const { id } = useParams()
    ////
     useEffect(() => {
@@ -22,9 +23,9 @@ function GameDetail() {
     }, [id, dispatch]);
 ///
 return  (
-<div className={style.all}>
+<div key={id} className={style.all}>
     <div className={style.container} >
-
+         <Link to={`/home`} className={style.bHome}><button className={style.bhome}>GO BACK TO HOME</button></Link>
         <div className={style.imgC}>
             <img src={videosD.background_image} className={style.img} alt='Imagen descrictiva' />
         </div>

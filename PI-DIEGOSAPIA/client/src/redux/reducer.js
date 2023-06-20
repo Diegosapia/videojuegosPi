@@ -1,6 +1,5 @@
 import {
   GET_VIDEOGAMES,
-  GET_BY_NAME,
   GET_VIDEOGAME_DETAIL,
   CLEAR_DETAIL,
   FILTER_BY,
@@ -77,24 +76,18 @@ const rootReducer = (state = initialState, action) => {
           ...state,
           videogames: state.gamescopy,
         };
-      }
-
-
+      };
 
     case ON_SEARCH:
      
        try {
-       const response = action.payload
-       
-
       return {
         ...state,
         videogames: [...action.payload],
       };
     } catch (error) {
        throw new Error("Personaje no enontrado")
-     }
-
+     };
 
      case FILTER_BY:
       const allCopy = [...state.videogames];
@@ -115,7 +108,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         videogames: [...allCopy]
 
-      }
+      };
     
         case ORDER_BY:
           
@@ -137,7 +130,7 @@ const rootReducer = (state = initialState, action) => {
           ...state,
           videogames: [...allRatings]
   
-        }
+        };
 
     case GET_GENRES:
       return {
@@ -154,16 +147,9 @@ const rootReducer = (state = initialState, action) => {
           ...state,
           videogames: [...state.gamescopy]
         }
-
       } else {
         const filteredVideogames = state.gamescopy.filter((video) => video.genres.includes(genre))
-        //   const fil = video.genres.filter((na) => na.name === genre);
-        //   if (fil.length) {
-        //     return true;
-        //   } else {
-        //     return false;
-        //   }
-        // });
+  
         return {
           ...state,
           videogames: [...filteredVideogames],
