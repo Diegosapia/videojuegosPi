@@ -1,9 +1,11 @@
 const validations = (form) => {
     let error = {};
+    const regex_url = /(http[s]?:\/\/.*\.(?:png|jpg|gif|svg|jpeg))/i;
+
     if (!form.name) {
     error.name="You must complete it"
     }
-    if(form.name.length > 20) {
+    if(form.name.length > 30) {
         error.name = "The name shoud have less than 20 characters"
     }
     if(form.description.length === 0) {
@@ -24,8 +26,11 @@ const validations = (form) => {
     if(form.platforms.length > 5) {
         error.platforms = "Your videogame can't have more than 5 Platforms"
     }
-    if(form.background_image.length < 1) {
+    if(!form.background_image.match(regex_url) ) {
         error.image = "You must update an URL with a picture"
+    }
+    if(form.background_image.length === '') {
+        error.image = "You should insert a url picture"
     }
     return error;
 }

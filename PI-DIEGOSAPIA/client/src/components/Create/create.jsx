@@ -15,6 +15,7 @@ const CreateVideogames = () => {
     const platforms = useSelector((state) => state.platforms)
     const genres = useSelector((state) => state.genres)
     ///
+
     const navigate = useNavigate();
     ///
     const [form, setForm] = useState({

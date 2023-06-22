@@ -4,35 +4,40 @@ import {
   GET_VIDEOGAME_DETAIL,
   CLEAR_DETAIL,
   GET_GENRES,
-  ORDER_BY_ORIGIN,
-  FILTER_BY,
+  FILTER_BY_ORIGIN,
+  ORDER_BY,
   FILTER_BY_GENRES,
   ON_SEARCH,
-  ORDER_BY,
+  ORDER_BY_RATING,
   GET_PLATFORMS,
   CREATE_VIDEOGAME,
 } from "./actions-types";
 
 ///////// todos los videojuegos////
+
 export const getGames = () => {
   return async function (dispatch) {
     const response = await axios.get("http://localhost:3001/videogames");
     return dispatch({ type: GET_VIDEOGAMES, payload: response.data });
   };
 };
+
 //////// videojuegos por nombre
 
 export const onSearch = (nameState) => {
-  console.log(nameState);
   return async function (dispatch) {
-    const { data } = await axios.get(
-      `http://localhost:3001/videogames?name=${nameState}`
-    );
-
-    return dispatch({
-      type: ON_SEARCH,
-      payload: data,
-    });
+    try {
+      const { data } = await axios.get(
+        `http://localhost:3001/videogames?name=${nameState}`
+      );
+      return dispatch({
+        type: ON_SEARCH,
+        payload: data,
+       
+      });
+    } catch (error) {
+      throw error;
+    }
   };
 };
 
@@ -75,19 +80,24 @@ export const getGamesId = (id) => {
   };
 };
 
+
 ////////////////// get platforms
 
 export const getPlatforms = () => {
   return async function (dispatch) {
-    const response = await axios.get("http://localhost:3001/platforms");
-
-    const arrayObjetos = response.data.map((valor, indice) => {
-      return { id: indice + 1, valor: valor };
-    });
-    return dispatch({
-      type: GET_PLATFORMS,
-      payload: arrayObjetos,
-    });
+    try {
+      const response = await axios.get("http://localhost:3001/platforms");
+      const arrayObjetos = response.data.map((valor, indice) => {
+        
+        return { id: indice + 1, valor: valor };
+      });
+      return dispatch({
+        type: GET_PLATFORMS,
+        payload: arrayObjetos,
+      });
+    } catch (error) {
+      throw error;
+    }
   };
 };
 
@@ -96,17 +106,18 @@ export const getPlatforms = () => {
 export const cleanDetail = () => {
   return { type: CLEAR_DETAIL };
 };
-
 //// todos los generos ///
-
 export const getGenres = () => {
   return async function (dispatch) {
-    const response = await axios.get("http://localhost:3001/genres");
-
-    return dispatch({
-      type: GET_GENRES,
-      payload: response.data,
-    });
+    try {
+      const response = await axios.get("http://localhost:3001/genres");
+      return dispatch({
+        type: GET_GENRES,
+        payload: response.data,
+      });
+    } catch (error) {
+      throw error;
+    }
   };
 };
 /// filtrado por generos ///
@@ -117,9 +128,9 @@ export const filterByGenres = (genres) => {
   };
 };
 /// acomodo segun su origen
-export const getSort = (order) => {
+export const filterOrigen = (order) => {
   return {
-    type: ORDER_BY_ORIGIN,
+    type: FILTER_BY_ORIGIN,
     payload: order,
   };
 };
@@ -128,29 +139,37 @@ export const getSort = (order) => {
 
 export const filterGames = (order) => {
   return {
-    type: FILTER_BY,
+    type: ORDER_BY,
     payload: order,
   };
 };
+
 //// order por rating
+
 export function orderBy(params) {
   return {
-    type: ORDER_BY,
+    type: ORDER_BY_RATING,
     payload: params,
   };
 }
-
 //// create videogame
-export function CreateVideogame(payload) {
-  return async function (dispatch) {
-    const response = await axios.post(
-      "http://localhost:3001/videogames",
-      payload
-    );
 
-    return dispatch({
-      type: CREATE_VIDEOGAME,
-      payload: response,
-    });
+export function CreateVideogame(payload) {
+  
+  return async function (dispatch) {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/videogames",
+        payload
+      );
+      
+      return dispatch({
+        type: CREATE_VIDEOGAME,
+        payload: response,
+      });
+    } catch (error) {
+      // Aquí puedes manejar el error de acuerdo a tus necesidades
+      alert(error.request.response);
+    }
   };
 }

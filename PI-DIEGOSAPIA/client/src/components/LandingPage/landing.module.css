@@ -2,9 +2,11 @@
 
 
 .all{
+  background-image: url('https://media.istockphoto.com/id/1389537015/video/computer-graphics-in-the-style-of-the-80s.jpg?s=640x640&k=20&c=mRcAO-KVlpnVYd6pE33VLmNaeRTmhedFb1pD-rQEYqs=');
+  background-size:cover;
+  
   max-height: 1000px;
 background-color: #312c2c;
-
 }
 .landing {
   display: flex;

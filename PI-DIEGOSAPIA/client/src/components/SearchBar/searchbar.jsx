@@ -1,18 +1,13 @@
 import { useState } from "react";
-import { onSearch } from "../../redux/actions";
+ import { onSearch } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import style from './searchbar.module.css';
 
 const SearchBar = () => {
-
-
     const dispatch = useDispatch()
-
 
     const [nameState, setNameState] = useState('')
     const [error, setError] = useState('')
-
-
 
     const handleSearch = (event) => {
         setNameState(event.target.value)
@@ -38,6 +33,5 @@ const SearchBar = () => {
             {error && <p className={style.error}>{error}</p>}
         </div>
        ) 
-    
 }
  export default SearchBar

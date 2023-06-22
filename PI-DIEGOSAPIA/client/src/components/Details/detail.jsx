@@ -14,6 +14,7 @@ function GameDetail() {
    ////
    
     const { id } = useParams()
+    
    ////
     useEffect(() => {
         dispatch(getGamesId(id));

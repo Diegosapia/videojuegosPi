@@ -5,9 +5,8 @@ import style from './videogame.module.css';
 
 
 
-const Videogame = ({ id, name, background_image, genres, rating }) => {
+const Videogame = ({ id, name, background_image, genres, rating}) => {
     
-
 
     return (
         <div className={style.conteiner}>
