@@ -58,15 +58,17 @@ const getVideogameId = async (req, res) => {
 //------------------------------------------------------------------------------------------//
 //// agrega el videogame a la base de datos ////
 const addVideogame = async (req, res) => {
+  
   /// destructura la info recibida por body ////
   try {
     const {name,description,platforms,rating,background_image,released,genres} = req.body;
     //if(name )
+    
     if (!name) {
       return res.status(400).send("we missing info");
     } else {
-      await createVideogame(
-        name.toLowerCase(),
+      const newVideogame = await createVideogame(
+        name,
         description,
         platforms,
         rating,
@@ -74,10 +76,15 @@ const addVideogame = async (req, res) => {
         released,
         genres
       );
+
+      if(newVideogame.error){
+        return res.status(404).send(newVideogame.error)
+          
+      }
       return res.status(200).send("Videogame created");
     }
   } catch (error) {
-    res.status(501).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
 

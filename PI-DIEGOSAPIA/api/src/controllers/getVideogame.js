@@ -1,6 +1,7 @@
 const axios = require("axios");
 require("dotenv").config();
 const { Videogame, Genre } = require("../db");
+const db = require("../db");
 const { API_KEY } = process.env;
 
 
@@ -39,8 +40,10 @@ const getInfoBd = async () => {
            }
        }
    });
+   
    const formattedVideogames = dbInfo.map(videogame => ({
     ...videogame.toJSON(),
+    
     genres: videogame.genres.map(genre => genre.name).join(', ')
   }))
   

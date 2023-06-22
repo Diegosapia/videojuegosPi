@@ -9,19 +9,24 @@ const {Op} = require('sequelize');
 const videogameQuery = async (name)=>{
     let videogamesApi= []
    
-     
+  
     const response = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
-         {
-
+         
+    if(response.data && response.data.results[0]){
+        
      for (let i = 0 ; i < 15 ; i++) {
-        const {id,name,background_image,genres,rating,released,platforms} = response.data.results[i];
-        const generos = genres.map(g=> g.name)
-        const plataformas = platforms.map(p=> p.platform.name)
-                
-        videogamesApi.push({id,name,background_image, genres:generos, platforms:plataformas, rating, released})
-            }
-
-};
+        if(response.data.results[i]) {
+               
+            const { id,name,background_image,genres,rating,released,platforms} = response.data.results[i];
+            
+            const generos = genres && genres.map(g=> g.name)
+            const plataformas = platforms && platforms.map(p=> p.platform.name)
+            
+            videogamesApi.push({id,name,background_image, genres:generos, platforms:plataformas, rating, released})
+        }
+    }
+        
+    };
     const responseBd = await Videogame.findAll({
     where : {
         name:{[Op.iLike]: `%${name}%` }
@@ -29,10 +34,18 @@ const videogameQuery = async (name)=>{
     include:{
         model: Genre,
         attributes: ["name"],
-        
+        through: {
+            attributes : [],
              }
+            }
 }); 
-   const total = [...videogamesApi, ...responseBd]
+
+    const formattedVg = responseBd.map(videog =>({
+      ...videog.toJSON(),
+      genres: videog.genres.map(g => g.name).join(', ')
+    }))
+
+   const total = [...videogamesApi, ...formattedVg]
    return total;
 };
 

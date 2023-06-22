@@ -1,21 +1,25 @@
-const {getGames} = require('./getVideogame')
+
+const {videogameQuery} = require ('./videogameQuery')
+/// importo los modelos de la base de datos 
 const { Videogame , Genre} = require('../db');
-const {videogameQuery}= require('../controllers/videogameQuery.js');
 
-
+///// en este componente se crea el videogame con la informacion enviada por el form
+//// Se declara una función asíncrona llamada createVideogame
 const createVideogame = async (name, description, platforms, rating,background_image ,released , genres) =>{
+/// Se utiliza la función findOne del modelo Videogame donde con el atributo name valor name, 
+//// para descartar la creacion de juegos con el mismo nombre 
+let apiRepeated = await videogameQuery(name)
+let nombre = apiRepeated.find(game => game.name.toLowerCase() === name.toLowerCase())
 
-
-    let isRepeated= await Videogame.findOne({ where: { name: name }})
-    
-    
-    
-
-
-    
-    if(isRepeated ) {
-        throw new Error('This game alredy exist')
-    }else { 
+if(nombre) {
+   return{
+    error: 'The game already exist'
+   }
+}
+// el condicional checkea si hay resultado que se envie un error.
+// el segundo condicional hace que si no hay resultado se cree el juego en la base de datos
+else { 
+ ///Se utiliza la función create del modelo Videogame para crear un nuevo juego
             const newVideogame = await Videogame.create(
                 {
                     name ,
@@ -26,61 +30,17 @@ const createVideogame = async (name, description, platforms, rating,background_i
                     released,
                     
                 })
-                
+ /// Se utiliza la función findAll del modelo Genre para buscar en la base de datos 
+ /// los géneros que coincidan con los proporcionados en el parámetro genres.
                let genreBd = await Genre.findAll({
                    where : {name : genres},
                });
-            
+ /// Se utiliza el método addGenres del objeto newVideogame para asociar los géneros encontrados 
+ ///   (genreBd) con el juego recién creado.           
                newVideogame.addGenres(genreBd);
                return newVideogame;
         } 
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // let isRepeated= await Videogame.findOne({ where: { name: name }})
-    //  let api = await getGames(name) 
-    //   const includesVideogame = await  api.filter((element) =>
-    //  element.name.toLowerCase().includes(name.toString().toLowerCase()))
-
-    // if(!isRepeated && !includesVideogame ) {
-    //     const newVideogame = await Videogame.create(
-    //             {
-    //                 name ,
-    //                 description,
-    //                 platforms,
-    //                 rating, 
-    //                 background_image,
-    //                 released,
-                    
-    //             })
-                
-    //            let genreBd = await Genre.findAll({
-    //                where : {name : genres},
-    //            });
-            
-    //            newVideogame.addGenres(genreBd);
-               
-    //            return newVideogame;
-    // }else { 
-    //     throw new Error('This game alredy exist')
-               
-    //     } 
+        
  
 }
 
