@@ -6,10 +6,10 @@ import Detail from './components/Details/detail';
  import Nav from './components/Nav/nav';
 
 
+
 function App() {
 
   const {pathname} = useLocation()
-
 
 
 

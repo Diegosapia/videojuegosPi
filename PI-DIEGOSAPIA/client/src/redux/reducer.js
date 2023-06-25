@@ -51,15 +51,17 @@ const rootReducer = (state = initialState, action) => {
     case CREATE_VIDEOGAME:
       return {
         ...state,
-        videogames:  action.payload,
+        videogames:  [...state.videogames, action.payload],
       };
 
     case CLEAR_DETAIL:
       return {
         ...state,
        
+        
+        detail: {},
         genres: [],
-      
+        platforms: [],
       };
 
     case FILTER_BY_ORIGIN:
@@ -84,28 +86,13 @@ const rootReducer = (state = initialState, action) => {
         filtered: videogamesFilterOrigin,
       };
 
-    // if (action.payload === "bd") {
-    //   return {
-    //     ...state,
-    //     videogames: state.gamescopy?.filter((one) => one.createdBd),
-    //   };
-    // } else if (action.payload === "api") {
-    //   return {
-    //     ...state,
-    //     videogames: state.gamescopy?.filter((one) => !one.createdBd),
-    //   };
-    // } else {
-    //   return {
-    //     ...state,
-    //     videogames: state.gamescopy,
-    //   };
-    // }
 
     case ON_SEARCH:
       try {
         return {
           ...state,
           videogames: [...action.payload],
+          filtered: [...action.payload]
         };
       } catch (error) {
         throw new Error("Personaje no enontrado");
@@ -126,6 +113,7 @@ const rootReducer = (state = initialState, action) => {
         );
       }
       if (action.payload === "Original") {
+        videogamesSort = videogamesFilteredCopy
       }
       if (action.payload === "D") {
         videogamesSort.reverse();
@@ -137,25 +125,6 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         filtered: videogamesSort,
       };
-
-    // const allCopy = [...state.videogames];
-    //   allCopy.sort((a, b) => {
-    //     const nameA = a.name.toLowerCase();
-    //     const nameB = b.name.toLowerCase();
-    //     if (action.payload === "A") {
-    //       if (nameA < nameB) return -1; //a-b
-    //       if (nameA > nameB) return 1; //b-a
-    //       return 0;
-    //     } else {
-    //       if (nameA > nameB) return -1;
-    //       if (nameA < nameB) return 1;
-    //       return 0;
-    //     }
-    //   });
-    //   return {
-    //     ...state,
-    //     filtered: [...allCopy],
-    //   };
 
     case ORDER_BY_RATING:
       let videogamesRating = [...state.filtered];
@@ -183,25 +152,6 @@ const rootReducer = (state = initialState, action) => {
         filtered: videogamesSortRating,
       };
 
-    // const allRatings = [...state.videogames];
-    // allRatings.sort((a, b) => {
-    //   const ratingA = a.rating;
-    //   const ratingB = b.rating;
-    //   if (action.payload === "SR") {
-    //     if (ratingA < ratingB) return -1; //a-b
-    //     if (ratingA > ratingB) return 1; //b-a
-    //     return 0;
-    //   } else {
-    //     if (ratingA > ratingB) return -1;
-    //     if (ratingA < ratingB) return 1;
-    //     return 0;
-    //   }
-    // });
-    // return {
-    //   ...state,
-    //   videogames: [...allRatings],
-    // };
-
     case FILTER_BY_GENRES:
       let videogameFilterGenre = [...state.filtered];
 
@@ -223,27 +173,13 @@ const rootReducer = (state = initialState, action) => {
           videogameFilterGenre.length !== "All"
         ) {
           window.alert("No hay coincidencias");
+          videogameFilterGenre = [...state.filtered];
         }
       }
       return {
         ...state,
         filtered: videogameFilterGenre,
 
-        //     const genre = action.payload;
-        //     if (genre === "All") {
-        //       return {
-        //         ...state,
-        //         videogames: [...state.gamescopy],
-        //       };
-        //     } else {
-        //       const filteredVideogames = state.gamescopy.filter((video) =>
-        //         video.genres.includes(genre)
-        //       );
-
-        //       return {
-        //         ...state,
-        //         videogames: [...filteredVideogames],
-        //       };
       };
     default:
       return { ...state };

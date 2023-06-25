@@ -5,9 +5,9 @@ import style from './videogames.module.css';
 
 
 
-const Videogames = ({currentVideogames}) => {
+const Videogames = ({ currentVideogames }) => {
     // const allVideogames = useSelector((state) => state.videogames)
- 
+
     return (
         <div className={style.cards}>
             {

@@ -164,5 +164,10 @@ span{
    
     
 }
-
+@media (min-with:350px) and (max-with:1024px) {
+    .App {
+        background-size: cover;
+        width: 100vw;
+    }
+}
 

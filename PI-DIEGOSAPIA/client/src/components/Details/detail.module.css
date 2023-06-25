@@ -72,3 +72,9 @@
     justify-content: end;
     color :#e712e3;
 }
+@media (min-with:350px) and (max-with:1024px) {
+    .App {
+        background-size: cover;
+        width: 100vw;
+    }
+}

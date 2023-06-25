@@ -20,7 +20,8 @@ const Home = () => {
     const [videogamesPerPage, setVideogamesPerPage]= useState(15)
     const indexOfLastVideogame = currentPage * videogamesPerPage // 15
     const indexOfFirstVideogame = indexOfLastVideogame - videogamesPerPage // 0
-    const currentVideogames = allVideogames.slice(indexOfFirstVideogame,indexOfLastVideogame)    
+    console.log(allVideogames)
+    const currentVideogames = allVideogames && allVideogames.slice(indexOfFirstVideogame,indexOfLastVideogame)    
 
     //// declaro pagina como setCurrentpage(pageNumber)
     const pagina = (pageNumbers) =>{
@@ -39,29 +40,31 @@ const Home = () => {
 
     
 /// declaro y seteo el handler para "resetear" la info renderizada 
-    const getVideogameHandler = (event) =>{
-        event.preventDefault();
-        dispatch(getGames());
-    };
+    // const getVideogameHandler = (event) =>{
+    //     // event.preventDefault();
+    //     dispatch(getGames());
+     
+        
+    // };
 //// declaro y seteo el handler para el ordenamiento alfabetico, despachando el evento a la action filterGames 
     const orderHandler = (event) =>{
         dispatch(filterGames(event.target.value));
-        setCurrentPage(1);
+        // setCurrentPage(1);
     };
 //// declaro y seteo el handler para filtrado por origen, despacho el evento a la action getSort
     const origenHandler = (event) =>{
         dispatch(filterOrigen(event.target.value));
-        setCurrentPage(1);
+        // setCurrentPage(1);
     }
 /// declaro y seteo el handler para filtrado por genero y despacho el evento a la action filterByGenres
     const genresHandler = (event) =>{
         dispatch(filterByGenres(event.target.value));
-        setCurrentPage(1);
+        // setCurrentPage(1);
     };
 //// declaro y seteo el handler para filtrado por rating y despacho el evento a la action orderBy
     const ratingHandler = (event)=>{
         dispatch(orderBy(event.target.value));
-        setCurrentPage(1);
+        // setCurrentPage(1);
     }
 
     
@@ -91,7 +94,7 @@ const Home = () => {
                         <option value={genre.name} key={genre.name}>{genre.name}</option>
                         ))}
                 </select>
-                <button className={style.button}onClick={(event) => { getVideogameHandler(event) }}>Reset</button>
+                <button className={style.button}onClick={() => window.location.reload()}>Reset</button>
             </div>
         </div>
             <div className={style.videogames}>

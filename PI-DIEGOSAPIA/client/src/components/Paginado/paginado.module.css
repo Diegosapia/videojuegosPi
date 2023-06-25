@@ -24,3 +24,9 @@
 .pageLink:hover {
     box-shadow: 0 2px 30px #f804ef;
 }
+@media (min-with:350px) and (max-with:1024px) {
+    .App {
+        background-size: cover;
+        width: 100vw;
+    }
+}
